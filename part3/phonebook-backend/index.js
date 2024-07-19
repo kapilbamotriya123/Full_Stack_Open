@@ -1,9 +1,13 @@
 const express= require("express")
 const morgan = require("morgan")
+const cors = require('cors')
+
 const app = express()
 
-//using the middle ware json parsor
-app.use(express.json())
+//this are all middle ware
+app.use(express.json()) //this is jason parsor used for converting json string to javascript object
+app.use(cors()) //this is for cross origin request 
+app.use(express.static('dist')) //this make the express to read the static content of the dist file 
 
 morgan.token(`body`,(request) => JSON.stringify(request.body))
 const customFormat = ':method :url :status :res[content-length] - :response-time ms :body';
