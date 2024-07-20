@@ -74,7 +74,7 @@ app.post('/api/notes',(request,response) => {
     response.json(savedNote)
   })
 })
-
+//this is update just for commiting to github
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
