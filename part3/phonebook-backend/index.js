@@ -1,6 +1,8 @@
 const express= require("express")
 const morgan = require("morgan")
 const cors = require('cors')
+const Person = require('./models/phonebook')
+const { default: mongoose } = require("mongoose")
 
 const app = express()
 
@@ -36,7 +38,7 @@ let persons = [
     }
 ]
 
-
+/*
 const generateId = () => {
     const maxId = persons.length > 0
         ?Math.max(...persons.map(person=>Number(person.id)))
@@ -45,9 +47,38 @@ const generateId = () => {
     
     return (maxId + 1)
 }
-``
+*/
+const showAll = () => {
+    Person.find({}).then(result => {
+        console.log(`phonebook: `)
+        result.forEach(person => {
+            console.log(`${person.name} ${person.number}`)
+        })
+        mongoose.connection.close()
+    })
+}
+
+
+const addPerson = () => {
+    const person = new Person({
+        name: personName,
+        number: personNumber
+    })
+    
+    person.save().then(result => {
+        console.log(`added ${personName} number ${personNumber} to phonebook`)
+        mongoose.connection.close()
+    })
+}
+
+
+
+
 app.get('/api/persons',(request,response) => {
-    response.json(persons)
+    Person.find({}).then(result =>{
+        response.json(result)
+    })
+    
 })
 
 app.get('/api/persons/:id',(request,response)=> {
@@ -77,13 +108,14 @@ app.delete('/api/persons/:id',(request,response)=> {
 
 app.post('/api/persons',(request,response) => {
     const body = request.body
+    //this is to check if there is no name in the sent request 
     if(!body.name) {
         response.status(404).json({
             error:'name missing'
         })
     }
     const name = body.name
-
+    //this was to check if there was already a person there with same name
     persons.forEach(person => {
         if(person.name === name) {
             response.status(404).end({
@@ -92,22 +124,22 @@ app.post('/api/persons',(request,response) => {
         }         
     });
 
-
+    //this was there there was no number in the sent request
 
     if(!body.number) {
         response.status(404).json({
             error:'number missing'
         })
     }
-    const person = {
-        "id": String(generateId()),
-        "name":body.name,
-        "number":body.number,
-    }
 
-    persons = persons.concat(person)
-    
-    response.json(person)
+    const person =  new Person({
+        name: body.name,
+        number: body.number
+    })
+    person.save().then(result=>{
+        response.json(person)
+    })
+
 })
 const PORT = 3001
 app.listen(PORT,()=> {

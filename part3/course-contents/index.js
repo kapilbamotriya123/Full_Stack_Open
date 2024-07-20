@@ -1,48 +1,45 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-
+const Note = require('./models/note')
 
 app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'))
 
-let notes = [
-    {
-      id: 1,
-      content: "HTML is easy",
-      important: true
-    },
-    {
-      id: 2,
-      content: "Browser can execute only JavaScript",
-      important: false
-    },
-    {
-      id: 3,
-      content: "GET and POST are the most important methods of HTTP protocol",
-      important: true
-    }
-  ]
 
+const notes = [
+  {
+    content: 'hey this is a note for handling the request which are not connected to mongodb',
+    important: true,
+    id:53425
+  }
+]
 app.get('/', (request, response) => {
   response.send('<h1>Hello World, How are you!</h1>')
 })
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 
-app.get('/api/notes/:id', (request, response) => { // Change here
-  const id = Number(request.params.id) // Convert the id to a number
-  const note = notes.find(note => note.id === id)
-
-  if (note) {
-    response.json(note)
-  } else {
-    response.status(404).end()
-  }
+app.get('/api/notes/:id', (request, response, next) => {
+  Note.findById(request.params.id)
+    .then(note => {
+      if (note) {
+        response.json(note)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => {
+      console.log(`are we getting this error`,error)
+      response.status(400).send(`mallformated id`)
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/notes/:id', (request, response) => {
@@ -67,14 +64,15 @@ app.post('/api/notes',(request,response) => {
         error:'content-missing'
         })
   }
-  const note = {
-    "content":body.content,
-    "important":Boolean(body.important) || false,
-    "id":generateId(),
-  }
-  notes = notes.concat(note)
-  response.json(note)
+  const note = new Note({
+    content:body.content,
+    important: Boolean(body.important) || false,
+  })
 
+  note.save().then(savedNote => {
+
+    response.json(savedNote)
+  })
 })
 
 const PORT = process.env.PORT || 3001
