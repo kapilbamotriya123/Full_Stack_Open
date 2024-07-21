@@ -81,29 +81,29 @@ app.get('/api/persons',(request,response) => {
     
 })
 
-app.get('/api/persons/:id',(request,response)=> {
-    const id = request.params.id
-    
-    const person = persons.find(person=>person.id===id)
-    if(!person) {
-        response.status(404).end()
-    }
-    response.json(person)
+app.get('/api/persons/:id',(request,response, next)=> {
+    Person.findById(request.params.id)
+        .then(note => {
+            response.json(note)
+        })
+        .catch(error => next(error))
 })
+
 
 app.get('/info',(request,response) =>{
     response.send(
-        `<p>The phonebook has ${persons.length} people</p>
+        `<p>The phonebook has ${Persons.length} people</p>
         <br/>
         ${Date()}
     `)
 })
 
-app.delete('/api/persons/:id',(request,response)=> {
-    const id = request.params.id
-    persons = persons.filter(person=>person.id!==id)
-    response.status(204).end(  )
-
+app.delete('/api/persons/:id',(request, response, next)=> {
+    Person.findByIdAndDelete(request.params.id)
+        .then(result => {
+            response.status(202).end()
+        })
+        .catch(error => next(error))    
 })
 
 app.post('/api/persons',(request,response) => {
