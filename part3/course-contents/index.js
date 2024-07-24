@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const Note = require('./models/note')
 
+
 app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'))
@@ -36,7 +37,6 @@ app.get('/api/notes/:id', (request, response, next) => {
       }
     })
     .catch(error => {
-      console.log(`are we getting this error`,error)
       response.status(400).send(`mallformated id`)
     })
     .catch(error => next(error))

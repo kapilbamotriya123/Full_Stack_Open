@@ -78,7 +78,7 @@ const App = () => {
       }
     }
     
-    if(!nameExists)
+    if(!nameExists && !numberExists)
     {
     const personObj = {
       name: newName,

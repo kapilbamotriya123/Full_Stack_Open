@@ -48,30 +48,6 @@ const generateId = () => {
     return (maxId + 1)
 }
 */
-const showAll = () => {
-    Person.find({}).then(result => {
-        console.log(`phonebook: `)
-        result.forEach(person => {
-            console.log(`${person.name} ${person.number}`)
-        })
-        mongoose.connection.close()
-    })
-}
-
-
-const addPerson = () => {
-    const person = new Person({
-        name: personName,
-        number: personNumber
-    })
-    
-    person.save().then(result => {
-        console.log(`added ${personName} number ${personNumber} to phonebook`)
-        mongoose.connection.close()
-    })
-}
-
-
 
 
 app.get('/api/persons',(request,response) => {
@@ -104,6 +80,21 @@ app.delete('/api/persons/:id',(request, response, next)=> {
             response.status(202).end()
         })
         .catch(error => next(error))    
+})
+
+app.put('/api/persons/:id', (request, response, next) =>{
+    const body = request.body
+    
+    const person = {
+        name:body.name,
+        number:body.number,
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person , {new: true})
+        .then(updatedNote => {
+            response.json(updatedNote)
+        })
+        .catch(error => next(error))
 })
 
 app.post('/api/persons',(request,response) => {

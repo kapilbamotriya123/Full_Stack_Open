@@ -1,0 +1,5 @@
+# Ensure all text files use LF
+* text=auto
+
+# Specify line endings for specific files
+*.json text eol=lf
