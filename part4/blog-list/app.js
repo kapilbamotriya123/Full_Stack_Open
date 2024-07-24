@@ -4,22 +4,23 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const Blog = require(`./models/blog`)
 const blogRouter = require(`./controllers/blogs`)
-const dotenv = require("dotenv")
-dotenv.config()
+const config = require(`./utils/config`)
+const logger = require('./utils/logger')
+
 
 //mongodb setup
 mongoose.set('strictQuery',false)
 
 
-const url = process.env.MONGODB_URI
 
-console.log('connecting to url')
-mongoose.connect(url)
+
+logger.info('connecting to url')
+mongoose.connect(config.MONGODB_URI)
     .then( result => {
-        console.log('connected to url')
+        logger.info('connected to url')
     })
     .catch(error => {
-        console.log(`error connecting to url`, error.message)
+        logger.info(`error connecting to url`, error.message)
     })  
 
 app.use(cors())

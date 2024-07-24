@@ -12,10 +12,15 @@ const noteSchema = new mongoose.Schema({
         required: true
     } ,
     important: Boolean,
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    }
 })
 
-// /basically what is doing is the object that is returned from the mongodb has two additional properties they we have defined one for the id and on __v 
-//what we want to do is convert the _id to normal id as we have used that keyword in out syntax and __v is of no use 
+/*basically what the following code is doing is the object that is returned from the mongodb
+has two additional properties they we have defined one for the id and on __v what we want to
+do is convert the _id to normal id as we have used that keyword in out syntax and __v is of no use */
 
 noteSchema.set('toJSON', {
     transform: (document,returnedObject) => {
