@@ -57,7 +57,9 @@ catch(error) {next(error)}
 //generate a random id first
 notesRouter.post('/',async (request,response,next) => {
   const body = request.body//json parser the data json data into java script object and makes it possible to changes the propertyof object here whcih is not possible with the json formated string 
-
+  if (!body.content) {
+    return response.status(400).json({error:'content missing'})
+  }
   const note = new Note({
     content:body.content,
     important: Boolean(body.important) || false,
