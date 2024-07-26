@@ -44,31 +44,6 @@ const favoriteBlog = (blogs) => {
     return blogs.find(blog => blog.likes===maxLikes)
 }
 
-const mostBlogs = (blogs) => {
-    const authors = []
-    blogs.forEach(blog => {
-        const author = authors.find(author => author.name ===blog.author)
-        console.log(author)
-        if(author === 'undefined') {
-            const newAuthor =  {
-                name: blog.author,
-                count: 1 
-            }
-        }
 
-        if (author) {
-            const updatedAuthor = {...author, count: count + 1}
 
-            authors.map(author => {
-                author.name !== updatedAuthor
-                ? author
-                : updatedAuthor
-            })
-        }
-        
-    })
-    console.log(authors)
-}
-
-mostBlogs(blogs)
 module.exports  = {dummy, totalLikes, favoriteBlog}
