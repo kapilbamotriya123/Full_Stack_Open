@@ -34,7 +34,7 @@ notesRouter.get('/:id', async (request, response, next) => {
 notesRouter.delete('/:id', async (request, response, next) => {
   try {
     const result = await Note.findByIdAndDelete(request.params.id)
-    response.status(202).end()
+    response.status(204).end()
   }
  catch(error) {
  next(error)
@@ -65,7 +65,7 @@ notesRouter.post('/',async (request,response,next) => {
 
   try {
   const savedNote =await note.save()
-  response.json(savedNote)
+  response.status(201).json(savedNote)
   }
   catch(error) {next(error)}
 })
