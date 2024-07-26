@@ -1,4 +1,5 @@
 const blogRouter = require(`express`).Router()
+const { Query } = require("mongoose")
 const Blog = require(`../models/blog`)
 
 
@@ -29,8 +30,20 @@ blogRouter.post('/',async(request, response) => {
           response.status(400).json({ error: 'title is required' });
         }
     }
+})
 
-    }
-)
+blogRouter.delete('/:id', async(request,response) => {
+    const id = request.params.id
+    const result = await Blog.findByIdAndDelete(id)
+    response.status(204).end()
+})
+
+blogRouter.put('/:id', async(request,response) => {
+    const id = request.params.id
+    const body = request.body
+    const result = await Blog.findByIdAndUpdate(id,body,{new: true})
+    response.json(result)
+})
+
 
 module.exports = blogRouter
