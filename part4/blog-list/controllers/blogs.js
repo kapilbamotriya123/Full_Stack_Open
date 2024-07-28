@@ -1,6 +1,7 @@
 const blogRouter = require(`express`).Router()
 const User = require('../models/user')
 const Blog = require(`../models/blog`)
+const jwt = require('jsonwebtoken')
 
 
 blogRouter.get('/', async (request,response) => {
@@ -8,12 +9,18 @@ blogRouter.get('/', async (request,response) => {
     response.json(blogs)
 })
 
-blogRouter.post('/',async(request, response) => {
+//foir fetching a token from the request
+
+
+blogRouter.post('/',async(request, response, next) => {
     const body = request.body
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!body.title || !body.author || !body.url) {
         return response.status(400).json({ error: 'title, author, and url are required' });
       }
-    const user = await User.findOne({})
+    
+    
+    const user = await User.findById(decodedToken.userId)
     let newBlog = {
         title: body.title,
         author:body.author,
@@ -24,7 +31,6 @@ blogRouter.post('/',async(request, response) => {
 
 
     const blog = new Blog(newBlog)
-    console.log(user);
     try{
     const result = await blog.save()
     user.blogs = user.blogs.concat(result._id)
@@ -36,13 +42,21 @@ blogRouter.post('/',async(request, response) => {
           response.status(400).json({ error: 'title is required' });
         }
     }
-
 })
 
-blogRouter.delete('/:id', async(request,response) => {
+blogRouter.delete('/:id', async(request,response,next) => {
     const id = request.params.id
-    const result = await Blog.findByIdAndDelete(id)
-    response.status(204).end()
+    const blog = await Blog.findById(id)
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    console.log('userid:', blog, 'decodedtokenid', decodedToken.userId)
+    if (blog.user.toString() === decodedToken.userId) {
+        await Blog.findByIdAndDelete(id)
+        response.status(204).end()
+    }
+    else {
+        return response.status(403).json({error:'acced denied to user, correct login required'})
+    } 
 })
 
 blogRouter.put('/:id', async(request,response) => {
