@@ -1,10 +1,10 @@
 const blogRouter = require(`express`).Router()
-const { Query } = require("mongoose")
+const User = require('../models/user')
 const Blog = require(`../models/blog`)
 
 
 blogRouter.get('/', async (request,response) => {
-    const blogs = await Blog.find({})
+    const blogs = await Blog.find({}).populate('user', {username:1, password:1});
     response.json(blogs)
 })
 
@@ -13,23 +13,30 @@ blogRouter.post('/',async(request, response) => {
     if (!body.title || !body.author || !body.url) {
         return response.status(400).json({ error: 'title, author, and url are required' });
       }
+    const user = await User.findOne({})
     let newBlog = {
         title: body.title,
         author:body.author,
         url:body.url,
-        likes:body.likes
+        likes:body.likes,
+        user:user.id
     }
 
 
     const blog = new Blog(newBlog)
+    console.log(user);
     try{
     const result = await blog.save()
+    user.blogs = user.blogs.concat(result._id)
+    await user.save()
+
     response.status(201).json(result)
     } catch (error) {
         if (error.name === 'ValidationError') {
           response.status(400).json({ error: 'title is required' });
         }
     }
+
 })
 
 blogRouter.delete('/:id', async(request,response) => {
