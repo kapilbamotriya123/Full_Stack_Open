@@ -14,6 +14,8 @@ blogRouter.get('/', async (request,response) => {
 
 blogRouter.post('/',async(request, response, next) => {
     const body = request.body
+    console.log(body)
+    console.log(request.token);
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!body.title || !body.author || !body.url) {
         return response.status(400).json({ error: 'title, author, and url are required' });

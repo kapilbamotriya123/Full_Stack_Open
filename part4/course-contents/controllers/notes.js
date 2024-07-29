@@ -70,9 +70,9 @@ notesRouter.post('/',async (request,response,next) => {
   if (!body.content) {
     return response.status(400).json({error:'content missing'})
   }
-  
+  let decodedToken = null
    try {
-    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
      }
   catch(error) {
     if (error.name === 'JsonWebTokenError') {
