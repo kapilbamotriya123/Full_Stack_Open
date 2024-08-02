@@ -4,7 +4,7 @@ const config = require(`./utils/config`)
 
 
 
-const PORT = config.PORT || 3001
+const PORT = config.PORT || 3003
 app.listen(PORT, () => {
   logger.info(PORT)
 })
