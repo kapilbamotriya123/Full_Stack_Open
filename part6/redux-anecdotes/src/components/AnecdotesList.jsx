@@ -23,7 +23,7 @@ const AnecdotesList = () => {
     //sorting the anecdotes
     const sortedAnecdotes = anecdotes.slice().sort((a, b) => b.votes - a.votes);
 
-    return (
+    return (  
         <div>
             <h2>Anecdotes</h2>
       {sortedAnecdotes.map(anecdote =>
