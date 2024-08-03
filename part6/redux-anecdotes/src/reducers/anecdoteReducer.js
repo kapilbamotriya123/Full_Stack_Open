@@ -1,5 +1,5 @@
+/* 
 import { combineReducers } from "redux"
-
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -36,10 +36,10 @@ const anecdoteReducer = (state = initialState, action) => {
     ))
   } else if ( action.type === 'NEW_ANECDOTE') {
     const newAnecdote = action.payload
-
+    
     return state.concat(newAnecdote)
   }
-
+  
   return state
 }
 
@@ -47,12 +47,12 @@ const filterReducer = (state = '', action) => {
   switch (action.type) {
     case 'FILTER':
       return action.payload;
-    default:
-      return state;
-  }
-};
-
-const reducer = combineReducers({
+      default:
+        return state;
+      }
+    };
+    
+    const reducer = combineReducers({
   anecdotes: anecdoteReducer,
   filter: filterReducer
 })
@@ -78,9 +78,10 @@ export const createAnecdote = (newAnecdote) => {
 
 export const addFilter = (filter) => {
   return {
-  type: 'FILTER',
-  payload: filter
+    type: 'FILTER',
+    payload: filter
   }
 }
 
 export default reducer
+*/
