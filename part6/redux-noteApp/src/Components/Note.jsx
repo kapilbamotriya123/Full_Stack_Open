@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
-import { toggleImportanceOf } from "../reducers/reducers"
+import { toggleImportanceOf } from "../reducers/noteReducer"
+
 
 const Note = ({note}) => {
     const dispatch = useDispatch()
@@ -7,7 +8,7 @@ const Note = ({note}) => {
     const toggleImportance = (id) => {
         dispatch(toggleImportanceOf(id))
       }
-    
+    // console.log(note)
     return (
         <li
         key={note.id}
