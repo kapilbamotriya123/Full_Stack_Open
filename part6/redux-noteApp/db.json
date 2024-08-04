@@ -28,7 +28,12 @@
     {
       "id": "f349",
       "content": "we can still add notes after defining action creator which returns function for fetchind data from server",
-      "important": false
+      "important": true
+    },
+    {
+      "id": "9842",
+      "content": "new notes get added with react-query",
+      "important": true
     }
   ]
 }
