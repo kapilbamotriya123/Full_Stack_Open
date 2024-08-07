@@ -5,19 +5,25 @@ import Filter from './components/Filter'
 import Notification from './components/Notification'
 import { initialiseNotes } from './reducers/anecdote-Reducer'
 import { useDispatch } from 'react-redux'
+import  {NotificationContextProvider, useNotificationValue, useNotificationDispatch} from './components/NotificationContext'
+
+import { useContext } from 'react'
 
 const App = () => {
   const dispatch = useDispatch()
 
   dispatch(initialiseNotes())
-  
+
+  console.log(useNotificationValue)
 
   return (
     <div>
-      <Notification />
-      <Filter />
-      <AnecdotesList/>
-      <AddAnectodes />
+      <NotificationContextProvider>
+        {useNotificationValue && <Notification />}
+        <Filter />
+        <AnecdotesList/>
+        <AddAnectodes />
+      </NotificationContextProvider>
     </div>
   )
 }

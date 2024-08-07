@@ -1,0 +1,107 @@
+/* App.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 40px; /* Add padding to avoid overlap with the fixed header */
+  }
+  
+  .container {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+  }
+  
+  .header {
+    background-color: white;
+    color: black;
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    right: 0;
+    border-radius: 0 0 0 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.8em;
+    color: #777;
+  }
+  
+  .title {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .person {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .person:last-child {
+    border-bottom: none;
+  }
+  
+  .person span {
+    font-size: 1em;
+    color: #555;
+    flex-grow: 1;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: auto; /* Make the delete button smaller */
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .filter-container {
+    margin-top: 60px; /* Ensure filter is visible below header */
+  }
+  
