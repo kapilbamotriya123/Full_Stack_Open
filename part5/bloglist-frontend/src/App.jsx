@@ -3,23 +3,29 @@ import Blog from "./components/Blog";
 import BlogForm from "./components/BlogForm";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import { showNotification } from "./reducers/notificationReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { createBlog, initialiseBlogs } from "./reducers/blogReducer";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-
-  const [notification, setNotification] = useState("");
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
   // console.log('logging with','username: ', username, 'password: ', password);
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    dispatch(initialiseBlogs())
   }, []);
+
+  const reduxBlogs = useSelector(state => state.blog)
+  
 
   useEffect(() => {
     const userJSON = window.localStorage.getItem("loggedBlogappUser");
@@ -29,6 +35,8 @@ const App = () => {
       blogService.setToken(user.generatedToken);
     }
   }, []);
+
+  const newNotif = useSelector(state => state.notification)
 
   //this is login handler
   const handleLogin = async (event) => {
@@ -40,10 +48,8 @@ const App = () => {
       setPassword("");
       setUsername("");
     } catch (exception) {
-      setNotification("incorrect username or password");
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
+
+      dispatch(showNotification('incorrect username or password'))
     }
   };
 
@@ -52,26 +58,19 @@ const App = () => {
 
     const newBlog = { title, author, url };
     if (title === "" || author === "" || url === "") {
-      setNotification(`all three fields are mandatory`);
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
-      return;
+      dispatch(showNotification(`all three fields are mandatory`))
+      
     }
-    try {
-      const response = await blogService.create(newBlog);
-      setBlogs(blogs.concat(response));
-      setNotification(`Added ${response.title} successfully`);
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
-    } catch (exception) {
-      setNotification(`all three fields are mandatory`);
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
+    else {
+      dispatch(createBlog(newBlog));
+      dispatch(showNotification(`Added" ${title}" successfully`))
+      setTitle('')
+      setUrl('')
+      setAuthor('')
     }
   };
+
+
   const userName = () => {
     if (user) {
       return user.username;
@@ -109,7 +108,11 @@ const App = () => {
           </div>
           <button type="submit">log in </button>
         </form>
-        <h3>{notification}</h3>
+        {
+          newNotif && 
+          <h1>{newNotif}</h1>
+        }
+
       </div>
     );
   }
@@ -118,7 +121,8 @@ const App = () => {
       <h2>blogs</h2>
       Logged in as: {userName()}
       <button onClick={logOut}>logout</button>
-      <h1>{notification}</h1>
+      
+      <h1>{newNotif}</h1>
       <BlogForm
         addBlog={addBlog}
         title={title}
@@ -128,7 +132,7 @@ const App = () => {
         url={url}
         setUrl={setUrl}
       />
-      {blogs.map((blog) => (
+      {reduxBlogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
     </div>

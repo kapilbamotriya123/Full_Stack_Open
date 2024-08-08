@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 
 blogRouter.get('/', async (request,response) => {
-    const blogs = await Blog.find({}).populate('user', {username:1, password:1});
+    const blogs = await Blog.find({});
     response.json(blogs)
 })
 
@@ -64,7 +64,9 @@ blogRouter.delete('/:id', async(request,response,next) => {
 blogRouter.put('/:id', async(request,response) => {
     const id = request.params.id
     const body = request.body
+    
     const result = await Blog.findByIdAndUpdate(id,body,{new: true})
+    
     response.json(result)
 })
 

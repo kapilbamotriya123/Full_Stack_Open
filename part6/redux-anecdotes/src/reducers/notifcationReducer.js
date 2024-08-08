@@ -12,7 +12,7 @@ const notificationSlice =createSlice({
     }
 })
 
-export const {addNotification} = notificationSlice.actions
+const {addNotification} = notificationSlice.actions
 
 
 export const notification = (notif) => {

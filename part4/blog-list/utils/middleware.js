@@ -15,8 +15,6 @@ const tokenExtactor = async (request, response, next ) => {
     catch(error) {
         next(error)
     }
-
-
     next()
 }
 
@@ -29,7 +27,7 @@ const errorHandler = (error, request, response, next) => {
     } else if (error.name === 'CastError') {
         return response.status(400).json({error: 'invalid Id'})
     }
-    next(error);
+    ;
 }
 
 module.exports = {errorHandler, tokenExtactor}
