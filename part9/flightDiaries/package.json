@@ -1,0 +1,27 @@
+{
+  "name": "flightdiaries",
+  "version": "1.0.0",
+  "description": "ilari's flight diaries | full stack open",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "dev": "ts-node-dev src/index.ts",
+    "lint": "eslint .",
+    "start": "node build/index.js"
+  },
+  "author": "Kapil Bamotriya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@stylistic/eslint-plugin": "^2.6.2",
+    "@types/eslint__js": "^8.42.3",
+    "@types/express": "^4.17.21",
+    "eslint": "^9.9.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript-eslint": "^8.0.1"
+  }
+}

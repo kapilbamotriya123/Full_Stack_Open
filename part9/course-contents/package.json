@@ -1,0 +1,28 @@
+{
+  "name": "typescript_intro",
+  "version": "1.0.0",
+  "description": "this is the first typescript project to learn the basics of typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "ts-node",
+    "multiply": "ts-node multiplier.ts",
+    "calculate": "ts-node calculator.ts",
+    "start": "ts-node index.ts",
+    "dev": "ts-node-dev index.ts",
+    "lint": "eslint ."
+  },
+  "author": "Kapil Bamotriya",
+  "license": "MIT",
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^2.6.2",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.1.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

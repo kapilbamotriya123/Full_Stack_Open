@@ -1,0 +1,30 @@
+{
+  "name": "bmi_calculator",
+  "version": "1.0.0",
+  "description": "this is part of exercise9.1 and so on.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "exerciseCalculator": "ts-node exerciseCalculator.ts",
+    "dev": "ts-node-dev index.ts",
+    "start": "ts-node index.ts",
+    "lint": "eslint ."
+  },
+  "author": "Kapil Bamotriya",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@stylistic/eslint-plugin": "^2.6.2",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.9.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.1"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.2.0",
+    "express": "^4.19.2"
+  }
+}
