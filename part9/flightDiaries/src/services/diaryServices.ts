@@ -12,6 +12,8 @@ const addDiary = (entry: newDiaryEntry):DiaryEntry => {
         id: Math.max(...diaryEntry.map(d => d.id)) + 1,
         ...entry
     };
+    console.log(newEntry);
+    console.log(diaryEntry.concat(newEntry));
     diaryEntry.push(newEntry);
     return newEntry;
 };
