@@ -1,5 +1,7 @@
 import { NewPatient } from "../../types";
 
+import { Gender } from "../../types";
+
 export const toNewPatient = (object: unknown): NewPatient => {
     if(!object || typeof object !== 'object') {
         throw new Error('invalid object or missing: ' + object);
@@ -50,8 +52,12 @@ const parseSsn = (param:unknown):string => {
     return param;
 };
 
-const parseGender = (param:unknown):string => {
-    if(!param || !isString(param) ) {
+const isGender = (param:string): param is Gender => {
+    return Boolean(Object.values(Gender).map(v => v.toString()).includes(param));
+};
+
+const parseGender = (param:unknown):Gender => {
+    if(!param || !isString(param)  || !isGender(param) ) {
         throw new Error('missing gender or invalid: ' + param);
     }
     return param;

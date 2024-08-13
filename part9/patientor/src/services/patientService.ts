@@ -19,7 +19,10 @@ export const addPatient = (patient: NewPatient):Patient => {
     const newPatient = {
         id,
         ...patient
-    },
+    };
+    
+    patientsData.push(newPatient);
+    return newPatient;
 
 };
 
