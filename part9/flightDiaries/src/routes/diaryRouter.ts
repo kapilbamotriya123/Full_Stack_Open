@@ -1,6 +1,6 @@
 
 import express from 'express';
-import {  addDiary, findById, getNonSensitiveEntries } from '../services/diaryServices';
+import {  addDiary, findById, getEntries } from '../services/diaryServices';
 import { toNewDiaryEntry } from '../utils/toNewDiaryEntry';
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', (_req, res) => {
   
   res.json(
-    getNonSensitiveEntries()
+    getEntries()
   );
 });
 
@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
     if (error instanceof Error) {
       errorMessage += 'Error: ' + error.message;
     }
-    res.status(400).send(errorMessage);
+    res.status(400).send({error: errorMessage});
   }
 });
 

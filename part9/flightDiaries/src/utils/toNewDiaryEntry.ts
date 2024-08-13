@@ -27,7 +27,6 @@ const parseComment = (comment: unknown) :string => {
 
 
 
-
 const isString = (text: unknown): text is string => {
     return text instanceof String || typeof text === 'string';
 };
