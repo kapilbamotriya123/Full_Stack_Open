@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About</title>
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+
+        p {
+            font-size: 25px;
+        }
+
+        body {
+            color: black;
+            font-size: 20px;
+            font-family: serif;
+            text-align: left;
+            background-color: blue;
+        }
+
+        .about-section {
+            padding: 20px;
+            background-color: yellow;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: grey;
+        }
+    </style>
+</head>
+<body>
+    <table bgcolor="yellow" height="8%" width="100%">
+        <tr>
+            <th align="left"><font color="black" size="4">Harley Davidson <br> Sch No.78, A.B Road, Near Transform GYM, Indore</font></th>
+            <th><font color="black" size="4">Call-7489300744</font></th>
+        </tr>
+    </table>
+
+    <br>
+
+    <table bgcolor="black" width="100%" height="15%">
+        <tr>
+            <th><a href="#" style="color:white; font-size: 16px;">Home</a></th>
+            <th><a href="#" style="color:white; font-size: 16px;">About</a></th>
+            <th><a href="#" style="color:white; font-size: 16px;">Contact-Us</a></th>
+            <th><a href="#" style="color:white; font-size: 16px;">Send Enquiry</a></th>
+        </tr>
+    </table>
+
+    <br>
+
+    <table bgcolor="yellow" width="100%" align="center" height="10%">
+        <tr>
+            <th><font color="black" size="4">Our Bike Models:</font></th>
+            <th><font color="black" size="4">Fat Boy</font></th>
+            <th><font color="black" size="4">Street Glide</font></th>
+            <th><font color="black" size="4">Road King</font></th>
+            <th><font color="black" size="4">Roadstar</font></th>
+            <th><font color="black" size="4">Forty-eight</font></th>
+        </tr>
+    </table>
+
+    <br>
+
+    <div class="about-section">
+        <h1>About Us</h1>
+        <p>Harley-Davidson, Inc., H-D, or Harley, is an American motorcycle manufacturer founded in 1903 in Milwaukee, Wisconsin...</p>
+        <p>Resize the browser window to see that this page is responsive by the way.</p>
+    </div>
+
+    <h2 style="text-align:center">Our Headquarters</h2>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <img src="file:///C:/Users/babli/Desktop/Harley-Davidson-Headquarters-Photo.jpg" alt="Located in U.S" style="width:100%">
+                <div class="container">
+                    <h2>Main Headquarters</h2>
+                    <p>Located in Milwaukee, Wisconsin, United States</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+        <h2 style="text-align:center">CEO</h2>
+        <div class="column">
+            <div class="card">
+                <img src="file:///C:/Users/babli/Desktop/ceo.jfif" alt="Mike" style="width:100%">
+                <div class="container">
+                    <h2>Jochen Zeitz</h2>
+                    <p class="title">Current CEO</p>
+                    <p>Jochen.Zeitz@harley-davidson.com</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1><center>CONTACT-US</center></h1>
+
+    <form>
+        <table bgcolor="white" align="right">
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="FirstName" size="15"></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" name="LastName" size="15"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" id="repass" name="repass"></td>
+            </tr>
+            <tr>
+                <td>Your Mobile Number:</td>
+                <td><input type="text" name="PhoneNumber" value="+91" size="15"></td>
+            </tr>
+            <tr>
+                <td>E-Mail:</td>
+                <td><input type="email" name="email"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><textarea cols="50" rows="7" name="address"></textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        const d = new Date();
+        d.setDate(20);
+        document.getElementById("demo").innerHTML = d;
+    </script>
+</body>
+</html>

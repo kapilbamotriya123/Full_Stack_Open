@@ -37,7 +37,7 @@ app.get('/api/notes/:id', (request, response, next) => {
       }
     })
     .catch(error => {
-      response.status(400).send(`mallformated id`)
+      response.status(400).send('mallformated id')
     })
     .catch(error => next(error))
 })
@@ -46,7 +46,7 @@ app.delete('/api/notes/:id', (request, response, next) => {
   Note.findByIdAndDelete(request.params.id).then(result =>{
     response.status(202).end()
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/notes/:id', (request,response,next) => {
@@ -68,8 +68,8 @@ const generateId = () => {
   const maxId = notes.length > 0
     ?Math.max(...notes.map(note=>Number(note.id)))
     :0
-    return(maxId + 1)
-  }
+  return(maxId + 1)
+}
 
 app.post('/api/notes',(request,response) => {
   const body = request.body//json parser the data json data into java script object and makes it possible to changes the propertyof object here whcih is not possible with the json formated string 
@@ -82,7 +82,7 @@ app.post('/api/notes',(request,response) => {
   note.save().then(savedNote => {
     response.json(savedNote)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 //this is update just for commiting to github
 const PORT = process.env.PORT || 3001

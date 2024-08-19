@@ -1,6 +1,7 @@
 import express from 'express';
 import { addPatient, getPatientsData } from '../services/patientService';
 import { toNewPatient } from '../utils/toNewPatient';
+import patientsData from '../../data/patients';
 
 const router = express.Router();
 
@@ -16,6 +17,16 @@ router.post('/', (req, res) => {
     console.log(addedPatient);
     return res.json(addedPatient);
     
+});
+
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    const patient = patientsData.find(patient => patient.id === id);
+    if(patient) {
+        res.json(patient);
+    } else {
+        res.status(400).send('invalid params');
+    }
 });
 
 export default router;
