@@ -134,7 +134,7 @@ const parseHealthCheckRating = (param: unknown): HealthCheckRating => {
 };
 
 // Entry parsing function
-const parseEntry = (entry: unknown): Entry => {
+export const parseEntry = (entry: unknown): Entry => {
     if (!entry || typeof entry !== 'object') {
         throw new Error('Invalid or missing entry object: ' + JSON.stringify(entry));
     }

@@ -77,7 +77,36 @@ const data: DiagnoseEntry[] = [
       "code": "H35.29",
       "name": "Other proliferative retinopathy",
       "latin": "Alia retinopathia proliferativa"
-    }
+    },
+    {
+      "code": "Z57.3",
+      "name": "Occupational exposure to noise"
+    },
+    {
+      "code": "R53.8",
+      "name": "Other malaise and fatigue",
+      "latin": "Alia defatigatione"
+    },
+    {
+      "code": "M54.5",
+      "name": "Low back pain",
+      "latin": "Dolor lumbalis"
+    },
+    {
+      "code": "S93.4",
+      "name": "Sprain of ankle",
+      "latin": "Distorsio malleoli"
+    },
+    {
+      "code": "T78.4",
+      "name": "Allergic reaction, unspecified",
+      "latin": "Reactio allergica non specificata"
+    },
+    {
+      "code": "R68.8",
+      "name": "Other general symptoms and signs",
+      "latin": "Alia signa generalia"
+    },
   ];
   
   export default data;

@@ -1,5 +1,5 @@
 import express from 'express';
-import { addPatient, getPatientsData } from '../services/patientService';
+import { addEntry, addPatient, getPatientsData } from '../services/patientService';
 import { toNewPatient } from '../utils/toNewPatient';
 import patientsData from '../../data/patients';
 
@@ -26,6 +26,15 @@ router.get('/:id', (req, res) => {
         res.json(patient);
     } else {
         res.status(400).send('invalid params');
+    }
+});
+
+router.post('/entry/:id', (req, res) => {
+    const entry = addEntry(req.body, req.params.id);
+    if(entry) {
+        res.json(entry);
+    } else {
+        res.status(400).send('invalid entry data');
     }
 });
 
