@@ -1,11 +1,29 @@
 import { useState, useEffect } from "react";
-import Blog from "./components/Blog";
+import Blog from "./components/pages/Blog";
 import BlogForm from "./components/BlogForm";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import { showNotification } from "./reducers/notificationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { createBlog, initialiseBlogs } from "./reducers/blogReducer";
+import Login from "./components/pages/LoginPage";
+import Nav from "./components/Navbar";
+import HomePage from "./components/pages/HomePage";
+import About from "./components/pages/About";
+import BlogsPage from "./components/pages/BlogPage";
+import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom'
+import CreateNew from "./components/pages/CreateNew";
+//importing css here
+import '../node_modules/modern-normalize/modern-normalize.css'
+import './index.css'
+import './App.css'
+import './components/styles/Nav.css'
+import './components/styles/home.css'
+import './components/styles/about.css'
+import './components/styles/Blogpage.css'
+import './components/styles/singleBlog.css'
+import './components/styles/newBlog.css'
+import './components/styles/login.css'
 
 const App = () => {
   
@@ -16,6 +34,7 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
+  const [content, setContent] = useState('')
 
   // console.log('logging with','username: ', username, 'password: ', password);
   const dispatch = useDispatch()
@@ -56,9 +75,9 @@ const App = () => {
   const addBlog = async (event) => {
     event.preventDefault();
 
-    const newBlog = { title, author, url };
-    if (title === "" || author === "" || url === "") {
-      dispatch(showNotification(`all three fields are mandatory`))
+    const newBlog = { title, author, url, content};
+    if (title === "" || author === "" || url === "" || content === "") {
+      dispatch(showNotification(`all 4 fields are mandatory`))
       
     }
     else {
@@ -67,6 +86,9 @@ const App = () => {
       setTitle('')
       setUrl('')
       setAuthor('')
+      setContent('')
+
+      
     }
   };
 
@@ -82,60 +104,44 @@ const App = () => {
     window.localStorage.removeItem("loggedBlogappUser");
     setUser(null);
   };
+
+
+  
   if (user === null) {
     return (
-      <div>
-        <h1>log in to application</h1>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-            <input
-              name="username"
-              type="text"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </div>
-
-          <div>
-            password
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit">log in </button>
-        </form>
-        {
-          newNotif && 
-          <h1>{newNotif}</h1>
-        }
-
-      </div>
+      <Login 
+      handleLogin = {handleLogin}
+      setUsername = {setUsername}
+      setPassword = {setPassword} 
+      password= {password} 
+      username= {username} 
+      newNotif = {newNotif}
+      />
     );
   }
   return (
-    <div>
-      <h2>blogs</h2>
-      Logged in as: {userName()}
-      <button onClick={logOut}>logout</button>
-      
-      <h1>{newNotif}</h1>
-      <BlogForm
-        addBlog={addBlog}
-        title={title}
-        setTitle={setTitle}
-        author={author}
-        setAuthor={setAuthor}
-        url={url}
-        setUrl={setUrl}
-      />
-      {reduxBlogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-    </div>
+    <Router>
+
+      <div className="main__app">
+        <Nav username = {userName} logOut= {logOut}/>
+        <Routes>
+          <Route path="/" element = {<HomePage/>} />
+          <Route path="/about" element = {<About/>} />
+          <Route path="/blogs" element = {<BlogsPage reduxBlogs={reduxBlogs}/>} />
+          <Route path="/blogs/:id" element = {<Blog blogs={reduxBlogs}/>} />
+          <Route path="/createnew" element = {<CreateNew addBlog={addBlog} title={title} setTitle={setTitle} author={author} 
+          setAuthor={setAuthor} url={url} setUrl= {setUrl} content={content} setContent ={setContent}/>} />
+        </Routes>
+      </div>
+
+      {newNotif && 
+      <div className="notification__wrapper">
+        <text className=" notification">{newNotif}</text>
+      </div>
+      }
+
+
+    </Router>
   );
 };
 

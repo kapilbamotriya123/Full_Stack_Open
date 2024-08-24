@@ -17,7 +17,7 @@ export const showNotification = (notif) => {
     return dispatch => {
         setTimeout(() => {
             dispatch(addNotification(null))
-        }, 5000);
+        }, 3000);
         dispatch(addNotification(notif))
     }
 }

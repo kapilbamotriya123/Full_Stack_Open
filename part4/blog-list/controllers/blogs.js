@@ -28,6 +28,7 @@ blogRouter.post('/',async(request, response, next) => {
         author:body.author,
         url:body.url,
         likes:body.likes,
+        content:body.content,
         user:user.id
     }
 
